@@ -29,20 +29,26 @@ export default function Index() {
     await makeSuggestion({ suggestion, monsterId, accepted: false, userId });
     setSuggestingFor(null);
   }
+
   return (
     <div>
       <h1>Explore all monster observations</h1>
-      <ul className="grid grid-cols-3 gap-3 mt-8">
+      <ul className="grid grid-cols-3 gap-8 mt-8">
       {monsters === undefined
         ? "loading..."
         : monsters.map((m, i) => {
         return(
           <li key={m._id} className="flex flex-col min-h-96 justify-between">
-            <Link to={`/monsters/${m._id}`}>
+            <Link to={`/monsters/${m._id}`} className="text-lime-600 hover:text-lime-700 flex flex-col min-h-96 justify-between mb-8">
+            <div>
               <h2>{m.name}</h2>
-            </Link>
+              {m.scientific &&
+                <small className="text-gray-600 text-sm italic">({m.scientific})</small>
+              }
+            </div>
+            <img src={m.image} alt={m.description} />
             {m.suggestions.length} suggestions
-            <img src={m.image} alt="" />
+            </Link>
             {suggestingFor !== m._id &&
               <button className="btn" onClick={() => setSuggestingFor(m._id)}>Suggest an ID</button>
             }

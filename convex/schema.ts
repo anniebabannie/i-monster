@@ -4,6 +4,7 @@ import { v } from "convex/values";
 export const MonsterSchema = {
   userId: v.string(),
   name: v.string(),
+  scientific: v.optional(v.string()),
   description: v.string(),
   avgHeight: v.string(),
   diet: v.string(),

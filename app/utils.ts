@@ -51,6 +51,7 @@ export const analyzeMonster = async (blob: Blob) => {
   const monsterSchema = [
     {
       name: "Name of the monster",
+      scientific: "The scientific name of the monster",
       description: "Description of the monster",
       avgHeight: "Approximate height of the monster in meters",
       diet: "Diet of the monster, what the monster eats",

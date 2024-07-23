@@ -57,10 +57,10 @@ export default function App() {
   return(
     <main>
       <header className="flex p-5 bg-gray-100 justify-between items-center">
-        <nav className="flex gap-3">
+        <nav className="flex gap-8 items-center">
           <div className="text-2xl font-bold">iMonsterist</div>
           <Link to="/">Explore</Link>
-          <Link to="/monsters/my">Your Observations</Link>
+          {/* <Link to="/monsters/my">Your Observations</Link> */}
           <Link to="/monsters/new">Add Monster</Link>
         </nav>
         <Unauthenticated>

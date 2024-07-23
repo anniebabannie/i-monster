@@ -5,7 +5,6 @@ import { api } from "convex/_generated/api";
 import { ConvexClient } from "convex/browser";
 import { useState } from "react";
 import { z } from "zod";
-import { analyzeMonster } from "~/utils";
 
 export async function action({
   request,
@@ -22,6 +21,7 @@ export async function action({
     environment: z.string(),
     image: z.string(),
     userId: z.string(),
+    scientific: z.string(),
   })
   
   try {
@@ -91,10 +91,13 @@ export default function MonstersNew() {
             </div>
             {img && <img src={img} alt="" />}
           </label>
-        {/* {errors?.title ? <span>{errors.title}</span> : null} */}
           <label htmlFor="name">
             Name
             <input type="text" name="name" />
+          </label>
+          <label htmlFor="scientific">
+            Scientific Name
+            <input type="text" name="scientific" />
           </label>
           <label htmlFor="description">
             Description
@@ -120,12 +123,30 @@ export default function MonstersNew() {
           <h2>Possible ID:</h2>
           {analysis &&
             <div className="flex flex-col gap-2 text-gray-500 italic">
-              <p><strong>Name:</strong> {analysis.name}</p>
-              <p><strong>Description:</strong> {analysis.description}</p>
-              <p><strong>Average Height:</strong> {analysis.avgHeight}</p>
-              <p><strong>Diet:</strong> {analysis.diet}</p>
-              <p><strong>Environment:</strong> {analysis.environment}</p>
-              {/* <button className="btn" onClick={acceptID}>Accept ID</button> */}
+              <div>
+                <p><strong>Name:</strong></p>
+                <p>{analysis.name}</p>
+              </div>
+              <div>
+                <p><strong>Scientific Name:</strong></p>
+                <p>{analysis.scientific}</p>
+              </div>
+              <div>
+                <p><strong>Description:</strong></p>
+                <p>{analysis.description}</p>
+              </div>
+              <div>
+                <p><strong>Average Height:</strong></p>
+                <p>{analysis.avgHeight}</p>
+              </div>
+              <div>
+                <p><strong>Diet:</strong></p>
+                <p>{analysis.diet}</p>
+              </div>
+              <div>
+                <p><strong>Environment:</strong></p>
+                <p>{analysis.environment}</p>
+              </div>
             </div>
           }
         </div>

@@ -4,6 +4,7 @@ import { MonsterSchema } from "./schema";
 import { getCurrentUser } from "./users";
 
 type Monster = {
+  scientific:string,
   name:string,
   description:string,
   avgHeight:string,
@@ -54,13 +55,17 @@ export const get = query({
   args: { monsterId: v.id("monsters") },
   handler: async (ctx, args) => {
     const monster = await ctx.db.get(args.monsterId);
-    return monster;
+    const suggestions = await ctx.db
+      .query("suggestions")
+      .filter((q) => q.eq(q.field("monsterId"), args.monsterId))
+      .collect();
+    return { ...monster, suggestions: [...suggestions] };
   },
 });
 
 export const send = mutation({
   args: { ...MonsterSchema },
-  handler: async (ctx, { name, description, avgHeight, diet, environment, userId, image}:Monster) => {
+  handler: async (ctx, { name, description, avgHeight, diet, environment, userId, image, scientific}:Monster) => {
     const user = await getCurrentUser(ctx);
     console.log(user);
     // Send a new message.
@@ -71,7 +76,8 @@ export const send = mutation({
       diet,
       environment,
       image,
-      userId
+      userId,
+      scientific
     });
     return monster;
   },
