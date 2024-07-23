@@ -66,13 +66,17 @@ export const analyzeMonster = async (blob: Blob) => {
     const response = await ollama.generate({
       model: 'llava',
       prompt: `
-      This is an image of some type of monster or fictional creature. Invent a name and some details about this monster or creature. Be as descriptive as you like.
+      This is an image of some type of monster or fictional creature. 
+      Invent a name and some details about this monster or creature. 
+      Be as descriptive as you like, but write it as it belonged in a scientific field guide. DO NOT mention that they are fictional – write as if they are real.
       In your response, provide me with the following information about the monster as JSON, following this schema: ${JSON.stringify(monsterSchema)}.
       Do not include any other properties in the JSON object other than the ones specified in the schema.`,
       images: [imgBase64],
       stream: false,
       format: 'json',
     })
+    console.log(response);
+    console.log(response.response);
     return response.response;
 
   } catch (error) {

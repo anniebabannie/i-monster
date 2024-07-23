@@ -14,7 +14,7 @@ export const MonsterSchema = {
 export const SuggestionSchema = {
   userId: v.string(),
   suggestion: v.string(),
-  monsterId: v.string(),
+  monsterId: v.id("monsters"),
   accepted: v.boolean(),
 }
 
@@ -25,4 +25,5 @@ export default defineSchema({
     // this the Clerk ID, stored in the subject JWT field
     externalId: v.string(),
   }).index("byExternalId", ["externalId"]),
+  suggestions: defineTable(SuggestionSchema),
 });

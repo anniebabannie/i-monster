@@ -11,9 +11,12 @@ export const loader = async ({ params }: { params: { id: string } }) => {
 export default function MonsterPage() {
   const id = useLoaderData();
   const monster = useQuery(api.monsters.get, { monsterId: id as Id<"monsters"> });
+  if (!monster) return "loading...";
   return (
-    <h1>
-      {monster?.name}
-    </h1>
+    <div>
+      <h1>{monster.name}</h1>
+      <img src={monster.image} alt="" />
+      <p>{monster.description}</p>
+    </div>
   );
 }

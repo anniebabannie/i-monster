@@ -56,16 +56,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return(
     <main>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/monsters/new">Add Monster</Link>
-      </nav>
-      <Unauthenticated>
-        <SignInButton />
-      </Unauthenticated>
+      <header className="flex p-5 bg-gray-100 justify-between items-center">
+        <nav className="flex gap-3">
+          <div className="text-2xl font-bold">iMonsterist</div>
+          <Link to="/">Explore</Link>
+          <Link to="/monsters/my">Your Observations</Link>
+          <Link to="/monsters/new">Add Monster</Link>
+        </nav>
+        <Unauthenticated>
+          <SignInButton />
+        </Unauthenticated>
+        <Authenticated>
+          <UserButton />
+        </Authenticated>
+      </header>
       <Authenticated>
-        <UserButton />
-        <Outlet/>
+        <div className="container max-w-6xl mx-auto py-8">
+          <Outlet />
+        </div>
       </Authenticated>
     </main>
   )

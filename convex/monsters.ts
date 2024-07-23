@@ -20,6 +20,36 @@ export const getAll = query({
   },
 });
 
+export const getAllWithSuggestions = query({
+  args: {},
+  handler: async (ctx) => {
+    const monsters = await ctx.db.query("monsters").collect();
+    const monstersWithSuggestions = await Promise.all(
+      monsters.map(async (monster) => {
+        const suggestions = await ctx.db
+          .query("suggestions")
+          .filter((q) => q.eq(q.field("monsterId"), monster._id))
+          .collect();
+        return { ...monster, suggestions };
+      })
+    );
+    return monstersWithSuggestions;
+  },
+});
+
+export const getMine = query({
+  args: {},
+  handler: async (ctx) => {
+    const user = await getCurrentUser(ctx);
+    const monsters = await ctx.db
+      .query("monsters")
+      .filter((q) => q.eq(q.field("userId"), user?.externalId))
+      .collect();
+    console.log("monsters", monsters);
+    return monsters;
+  },
+});
+
 export const get = query({
   args: { monsterId: v.id("monsters") },
   handler: async (ctx, args) => {
