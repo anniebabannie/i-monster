@@ -1,5 +1,6 @@
 import {
   json,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -14,13 +15,15 @@ import { ClerkProvider, SignInButton, useAuth, UserButton } from "@clerk/clerk-r
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 
 export async function loader() {
-  const {CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY } = process.env;
-  return json({ ENV: { CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY } });
+  const {PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY } = process.env;
+  return json({ 
+    ENV: { PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY }
+  });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { ENV } = useLoaderData<typeof loader>();
-  const [convex] = useState(() => new ConvexReactClient(ENV.CONVEX_URL as string));
+  const [convex] = useState(() => new ConvexReactClient(ENV.PUBLIC_CONVEX_URL as string));
 
   return (
     <html lang="en">
@@ -37,6 +40,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </ConvexProviderWithClerk>
         </ClerkProvider>
         <ScrollRestoration />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(
+              ENV
+            )}`,
+          }}
+        />
         <Scripts />
       </body>
     </html>
@@ -46,6 +56,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return(
     <main>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/monsters/new">Add Monster</Link>
+      </nav>
       <Unauthenticated>
         <SignInButton />
       </Unauthenticated>

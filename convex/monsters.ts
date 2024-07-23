@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { MonsterSchema } from "./schema";
+import { getCurrentUser } from "./users";
 
 type Monster = {
   name:string,
@@ -8,6 +9,8 @@ type Monster = {
   avgHeight:string,
   diet:string,
   environment:string,
+  image:string,
+  userId:string,
 }
 
 export const getAll = query({
@@ -28,7 +31,18 @@ export const get = query({
 export const send = mutation({
   args: { ...MonsterSchema },
   handler: async (ctx, { name, description, avgHeight, diet, environment}:Monster) => {
+    const user = await getCurrentUser(ctx);
+    
     // Send a new message.
-    await ctx.db.insert("monsters", { name, description, avgHeight, diet, environment });
+    const monster = await ctx.db.insert("monsters", { 
+      name,
+      description,
+      avgHeight,
+      diet,
+      environment,
+      image: "",
+      userId: user!._id 
+    });
+    return monster;
   },
 });
