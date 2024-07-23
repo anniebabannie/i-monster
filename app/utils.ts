@@ -18,13 +18,13 @@ export async function getBase64Image(blob: Blob) {
 export async function uploadImage(file: Blob) {
     let buffer = Buffer.from(await file.arrayBuffer());
     const filename = uuidv4();
-    const {AWS_REGION, BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY} = import.meta.env;
+    const { AWS_REGION, BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env;
     const s3Client = new S3Client({
       endpoint: "https://fly.storage.tigris.dev",
-      region: AWS_REGION,
+      region: AWS_REGION as string,
       credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
+        accessKeyId: AWS_ACCESS_KEY_ID as string,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY as string,
       },
     });
 

@@ -44,16 +44,6 @@ function ImageUpload() {
           <button type="submit">Upload</button>
         </form>
         <img src={image} alt="" />
-        <div>
-          <h2>Monster</h2>
-          <pre>
-            {`
-              | Name | Description | Avg Height | Diet | Environment |
-              | ---- | ----------- | --------- | ---- | ----------- |
-              | ${monster?.name} | ${monster?.description} | ${monster?.avgHeight} | ${monster?.diet} | ${monster?.environment} |
-              `}
-          </pre>
-        </div>
       </div>
   );
 }

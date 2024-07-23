@@ -30,9 +30,9 @@ export const get = query({
 
 export const send = mutation({
   args: { ...MonsterSchema },
-  handler: async (ctx, { name, description, avgHeight, diet, environment}:Monster) => {
+  handler: async (ctx, { name, description, avgHeight, diet, environment, userId, image}:Monster) => {
     const user = await getCurrentUser(ctx);
-    
+    console.log(user);
     // Send a new message.
     const monster = await ctx.db.insert("monsters", { 
       name,
@@ -40,8 +40,8 @@ export const send = mutation({
       avgHeight,
       diet,
       environment,
-      image: "",
-      userId: user!._id 
+      image,
+      userId
     });
     return monster;
   },
