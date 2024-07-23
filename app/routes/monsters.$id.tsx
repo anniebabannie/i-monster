@@ -15,7 +15,7 @@ export default function MonsterPage() {
   console.log(monster);
   return (
     <div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <img src={monster.image} alt={monster.description} className="w-full" />
         </div>
@@ -27,7 +27,7 @@ export default function MonsterPage() {
             }
           </div>
           <p>{monster.description}</p>
-          <p><strong>Average Height: {monster.avgHeight}</strong></p>
+          <p><strong>Average Height: </strong>{monster.avgHeight}</p>
           <p><strong>Diet:</strong> {monster.diet}</p>
           <p><strong>Environment:</strong> {monster.environment}</p>
           {monster.suggestions.length > 0 &&
@@ -36,7 +36,7 @@ export default function MonsterPage() {
             <ul>
               {monster.suggestions.map((s) => (
                 <li key={s._id}>
-                  {s.suggestion} by {s.userId}
+                  <strong>{s.suggestion}</strong> by {s.userId}
                 </li>
               ))}
             </ul>
