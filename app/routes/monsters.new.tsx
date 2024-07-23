@@ -57,14 +57,14 @@ export default function MonstersNew() {
     }
     const formData = new FormData();
     formData.append('image', file as Blob);
-    const resp = await fetch(`${window.ENV.HOST}/upload`, {
+    const resp = await fetch(`${window.ENV.APP_HOST_ADDRESS}/upload`, {
       method: "POST",
       body: file,
     })
     
     const response = await resp.json();
     setImg(response.image);
-    const analysisResp = await fetch(`${window.ENV.HOST}/analyze`, {
+    const analysisResp = await fetch(`${window.ENV.APP_HOST_ADDRESS}/analyze`, {
       method: "POST",
       body: file,
     })

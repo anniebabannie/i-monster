@@ -17,7 +17,7 @@ function ImageUpload() {
     }
     const formData = new FormData();
     formData.append('image', file as Blob);
-    const resp = await fetch(`${window.ENV.HOST}/`, {
+    const resp = await fetch(`${window.ENV.APP_HOST_ADDRESS}/`, {
       method: "POST",
       body: file,
     })

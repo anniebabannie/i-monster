@@ -15,9 +15,9 @@ import { ClerkProvider, SignInButton, useAuth, UserButton } from "@clerk/clerk-r
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 
 export async function loader() {
-  const {PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY, HOST } = process.env;
+  const {PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY, APP_HOST_ADDRESS } = process.env;
   return json({ 
-    ENV: { PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY, HOST }
+    ENV: { PUBLIC_CONVEX_URL, PUBLIC_CLERK_PUBLISHABLE_KEY, APP_HOST_ADDRESS }
   });
 }
 
