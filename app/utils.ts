@@ -60,7 +60,7 @@ export const analyzeMonster = async (blob: Blob) => {
   ];
 
   const ollama = new Ollama({ 
-    host: 'http://imonster-ollama.flycast'
+    host: 'http://imonster2-ollama.internal'
     // host: 'http://ollama-scale-to-0-purple-pine-2926.flycast'
   });
 
